@@ -1,0 +1,23 @@
+﻿table.table thead th[class="orderable"] {
+    background: url("../images/sort_both.png") no-repeat center right !important;
+}
+table.table thead th[class="orderable_asc"] {
+    background: url("../images/sort_asc.png") no-repeat center right !important;
+}
+table.table thead th[class="orderable_desc"] {
+    background: url("../images/sort_desc.png") no-repeat center right !important;
+}
+table.table thead th[class="orderable"],
+table.table thead th[class="orderable_asc"],
+table.table thead th[class="orderable_desc"]{
+    cursor:pointer;
+}
+table.table thead th {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
