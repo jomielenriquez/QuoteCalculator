@@ -21,7 +21,7 @@
 1. Open SSMS and Connect to your SQL server and log in
 2. Create new database and name it as "CALCUDB".
 <br/>  ⚠️ Not doing this step can cause an issue on the web application
-4. After creating CALCUDB on your SQL server, on the file 'QuoteCalculatorDB.sql' in SSMS and press "F5" to run the query.
+4. After creating CALCUDB on your SQL server, on the file 'QuoteCalculatorDB.sql' in SSMS and press "F5" to run the query. <br/> 💡 Location of the file (../QuoteCalculator/QuoteCalculatorDB)
 <br/>  💡Running file ('QuoteCalculatorDB.sql') will create all the tables and stored procedure needed to run the Quote Calculator web app.
 5. Just wait for the script to finish executing.
 
@@ -54,7 +54,10 @@
 ||MOBILE|NVARCHAR(50)|Requestor mobile number|
 ||WEEKLY|NVARCHAR(50)|Requestor weekly payable for the quote|
 
+## 🛠️ Setting Up Web config
+1. Open the solution 'QuoteCalculator.sln' in your visual studio 2022. <br/> 💡 Location of the file '../QuoteCalculator'
+2. Look for the file Web.config and look for the connection string. Change the Data Source value. Default value is 'MBTMNL-JOMIEE\SQLEXPRESS'. Change this value to the name of your SQL server. You can find this in your SSMS application.
+3. From Visual Studio, Press 'F5' to run the web application. The application should be running at this point. Check the error log if error was thrown.
 
-
-
-
+## 📄 Pages
+> There are different pages in the solution. There are partial page and pages that is connected to those partial page.
