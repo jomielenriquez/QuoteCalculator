@@ -3,31 +3,33 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>QUOTE CALCULATOR</h1>
+    <p class="lead">For the Money Me technical exam, this project was created. Between October 31 and November 1, 2022, Jomiel Enriquez is the creator of this. Even though this project still needs a lot of work, the current version is functional. By utilizing many forms of technology, this project was constructed in just two days. The application is currently deployed to SOMEE.</p>
+    
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
+    <div class="col-md-12">
+        <h2>Home Page</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            The project is briefly described on the home page. This project employs a variety of technologies, including C#, ASP.Net, and ADO.Net. Visual Studio, JavaScript, HTML, CSS, and SSMS
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <div class="col-md-12">
+        <h2>Quote Page</h2>
+        <p>
+            Quote Page contains the List of all submitted quote.
+        </p>
+        <p>@Html.ActionLink("Go to Quote", "QuoteList", "Home", new { @class = "btn btn-default" })</p>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+    <div class="col-md-12">
+        <h2>Quote API Tester Page</h2>
+        <p>
+            Quote API Tester Page will redirect you to the page that can be use to send API request to quote calculator using JSON format parameter.
+        </p>
+        <p>@Html.ActionLink("Go to API Tester", "APITester", "Home", new { @class = "btn btn-default" })</p>
     </div>
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Left</button>
 
 </div>
