@@ -1,5 +1,5 @@
 # Quote Calculator
->This project is dedicated for technical exam of Money Me. This is created by Jomiel Enriquez from October 31, 2022 to November 1, 2022. There are lots of things that needs to improve in this project but this version is already working. This projects is build in just 2 days using different kinds of technology. The page is currently deployed to [SOMEE](http://www.quotecalculator.somee.com/).
+>For the Money Me technical exam, this project was created. Between October 31 and November 1, 2022, Jomiel Enriquez is the creator of this. Even though this project still needs a lot of work, the current version is functional. By utilizing many forms of technology, this project was constructed in just two days. The application is currently deployed to [SOMEE](http://www.quotecalculator.somee.com/).
 
 ## :technologist: Technologies
 <p float="left">
