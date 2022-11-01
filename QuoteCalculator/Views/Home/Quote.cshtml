@@ -1,0 +1,347 @@
+﻿@using QuoteCalculator.Models
+
+@{
+    ViewBag.Title = "QuoteCalculator";
+    Layout = "~/Views/Shared/_Quote.cshtml";
+}
+
+<div class="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" style="text-align:center">Your Quote</h1>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <input id="inputQID" type="number" value="@Model.QID" style="display:none" />
+                    <input id="input_Product" type="text" value="@Model.Product" style="display:none" />
+                    @* Your Information *@
+                    <div class="form-group">
+                        <label class="col-lg-6 text-left">Your Information</label>
+                        <label class="col-lg-6 text-right noselect" id="Btn_EditInfo" onclick="Btn_EditInfo_Clicked()"><a>Edit</a></label>
+                    </div>
+                    <div class="form-group">
+                        @* Name *@
+                        <label class="col-lg-6 text-left text-muted">Name</label>
+                        <label class="col-lg-6 text-right text-muted" style="display:block" id="labelName">@Html.Raw(Model.Title + " " + Model.FirstName + " " + Model.LastName)</label>
+                        <label class="col-lg-6 inputName emptyLable"> </label>
+                        <div class="col-lg-3 inputName hiddenTag">
+                            <select class="form-control" id="selectTitle">
+                                <option value="Mr." @{if (Model.Title == "Mr.") { @Html.Raw("selected")  } }>Mr.</option>
+                                <option value="Mrs." @{if (Model.Title == "Mrs.") { @Html.Raw("selected")  } }>Mrs.</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 inputName hiddenTag">
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" value="@Model.FirstName">
+                        </div>
+                        <div class="col-lg-5 inputName hiddenTag">
+                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" value="@Model.LastName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        @* Mobile *@
+                        <label class="col-lg-6 text-left text-muted">Mobile</label>
+                        <label class="col-lg-6 text-right text-muted" id="labelMobile">@Model.Mobile</label>
+                        <label class="col-lg-6 inputNumber emptyLable"> </label>
+                        <div class="col-lg-12 inputNumber hiddenTag">
+                            <input type="tel" class="form-control" id="inputMN" placeholder="Mobile Number" value="@Model.Mobile" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @* Email *@
+                        <label class="col-lg-6 text-left text-muted">Email</label>
+                        <label class="col-lg-6 text-right text-muted" id="labelEmail">@Model.Email</label>
+                        <label class="col-lg-6 inputEmail emptyLable"> </label>
+                        <div class="col-lg-12 inputEmail hiddenTag">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Your Email" value="@Model.Email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @* DateOfBirth *@
+                        <label class="col-lg-6 text-left text-muted">Birth Date</label>
+                        <label class="col-lg-6 text-right text-muted" id="labelDOB">@Model.DateOfBirth</label>
+                        <label class="col-lg-6 inputDOB emptyLable"> </label>
+                        <div class="col-lg-12 inputDOB hiddenTag">
+                            <input type="date" class="form-control" id="inputDOB" placeholder="Date of Birth" value="@Model.DateOfBirth">
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    @* Financial Details *@
+                    <div class="form-group">
+                        <label class="col-lg-6 text-left">Financial details</label>
+                        <label class="col-lg-6 text-right noselect" id="Btn_EditFinance" onclick="Btn_EditFinance_Clicked()"><a>Edit</a></label>
+                    </div>
+
+                    <div class="form-group rangeAmount">
+                        @* Financial Amount *@
+                        <label class="col-lg-6 text-left text-muted">Finance Amount</label>
+                        <h3><label class="col-lg-6 text-right text-success AmountRequiredLabel">$ @Model.AmountRequired</label></h3>
+                    </div>
+                    <div class="form-group rangeAmount">
+                        @* *@
+                        <label class="col-lg-6 text-left text-muted"></label>
+                        <label class="col-lg-6 text-right text-muted TermLabel">over @Model.Term Months</label>
+                    </div>
+                    <div class="form-group hiddenTag rangeAmount">
+                        <label class="col-lg-1 control-label">Amount</label>
+                    </div>
+                    <div class="form-group hiddenTag rangeAmount">
+                        <div class="col-lg-12">
+                            <input type="range" id="inputAmount" max="1000" min="0" value="@Model.AmountRequired">
+                            <div class="rangeTag">
+                                <div class="popover fade top in" id="AmountContainer">
+                                    <div class="arrow" style="left: 50%;"></div>
+                                    <h3 class="popover-title" style="display: none;"></h3>
+                                    <div class="popover-content">
+                                        <span id="AmountValue"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group hiddenTag rangeAmount">
+                        <label class="col-lg-1 control-label">Term</label>
+                    </div>
+                    <div class="form-group hiddenTag rangeAmount">
+                        <div class="col-lg-12">
+                            <input type="range" id="inputTerm" max="36" min="0" value="@Model.Term">
+                            <div class="rangeTag">
+                                <div class="popover fade top in" id="TermContainer">
+                                    <div class="arrow" style="left: 50%;"></div>
+                                    <h3 class="popover-title" style="display: none;"></h3>
+                                    <div class="popover-content">
+                                        <span id="TermValue"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-6 text-left"></label>
+                        <label class="col-lg-6 text-right"></label>
+                    </div>
+                    <div class="form-group">
+                        @* Financial Amount *@
+                        <label class="col-lg-6 text-left text-muted">Repayments from</label>
+                        <h3><label class="col-lg-6 text-right text-success Repayments">$1,000</label></h3>
+                        <input type="text" class="hiddenTag" value="@Model.AmountRequired" id="InputRepayment" />
+                    </div>
+                    <div class="form-group">
+                        @* *@
+                        <label class="col-lg-6 text-left text-muted"></label>
+                        <label class="col-lg-6 text-right text-muted">Weekly</label>
+                    </div>
+
+                    <div class="form-group"></div>
+
+                    <div class="form-group">
+                        <div class="col-lg-5"></div>
+                        <div class="col-lg-5">
+                            <button type="button" class="btn btn-success" style="margin:auto;" onclick="ApplyQuote()">Apply now</button>
+                        </div>
+                        <div class="col-lg-5"></div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@Scripts.Render("~/bundles/SystemJS")*@
+<script type="text/javascript" charset="utf-8">
+    function someerm(data) {
+        const splitData = data.split("<!--SCRIPT GENERATED BY SERVER! PLEASE REMOVE-->");
+        return splitData[0];
+    }
+
+    class inputSlider {
+        constructor(irange, container, ivalue, unit, unitLoc) {
+            // unitLoc or unit location 1 front, 2 end
+            var myRange = irange;
+            var myValue = ivalue;
+            var myContainer = container
+            var myUnits = unit;
+            var off = myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
+            var px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myContainer.offsetParent.offsetWidth / 2);
+
+            myContainer.parentElement.style.left = px + 'px';
+            myContainer.parentElement.style.top = myRange.offsetHeight + 'px';
+            if (unitLoc == 1) myValue.innerHTML = myUnits + ' ' + myRange.value;
+            else myValue.innerHTML = myRange.value + ' ' + myUnits;
+
+            myRange.oninput = function () {
+                let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myContainer.offsetWidth / 2);
+                if (unitLoc == 1) myValue.innerHTML = myUnits + ' ' + myRange.value;
+                else myValue.innerHTML = myRange.value + ' ' + myUnits;
+                myContainer.parentElement.style.left = px + 'px';
+            };
+            myRange.onchange = function () {
+                let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myContainer.offsetWidth / 2);
+                if (unitLoc == 1) myValue.innerHTML = myUnits + ' ' + myRange.value;
+                else myValue.innerHTML = myRange.value + ' ' + myUnits;
+                myContainer.parentElement.style.left = px + 'px';
+            };
+        }
+    }
+
+
+    var onEditInfo = false;
+
+    $(document).ready(function () {
+
+        $(".AmountRequiredLabel").html(parseFloat('@Model.AmountRequired').toLocaleString("en-US", { style: "currency", currency: "USD" }));
+        $(".Repayments").html(parseFloat('@Model.Weekly').toLocaleString("en-US", { style: "currency", currency: "USD" }));
+        $("#InputRepayment").val(parseFloat('@Model.Weekly'));
+    });
+
+    function Btn_EditInfo_Clicked() {
+        $(".inputName").toggle("display");
+        $("#labelName").toggle("display");
+
+        $(".inputNumber").toggle("display");
+        $("#labelMobile").toggle("display");
+
+        $(".inputEmail").toggle("display");
+        $("#labelEmail").toggle("display");
+
+        $(".inputDOB").toggle("display");
+        $("#labelDOB").toggle("display");
+
+        var edit_btn = $("#Btn_EditInfo");
+        edit_btn.html((edit_btn.html() == "<a>Edit</a>") ? "<a>Done</a>" : "<a>Edit</a>");
+    }
+    function Btn_EditFinance_Clicked() {
+        $(".rangeAmount").toggle("display");
+
+        var inputAmount = document.querySelector('#inputAmount');
+        var AmountValue = document.querySelector('#AmountValue');
+        var AmountContainer = document.querySelector('#AmountContainer');
+        let SliderAmount = new inputSlider(inputAmount, AmountContainer, AmountValue, '$', 1);
+
+        var inputTerm = document.querySelector('#inputTerm');
+        var TermValue = document.querySelector('#TermValue');
+        var TermContainer = document.querySelector('#TermContainer');
+        let SliderTerm = new inputSlider(inputTerm, TermContainer, TermValue, 'months', 2);
+
+        //toggle text content
+        var edit_btn = $("#Btn_EditFinance");
+        edit_btn.html((edit_btn.html() == "<a>Edit</a>") ? "<a>Done</a>" : "<a>Edit</a>");
+    }
+    $("#inputAmount").change(function () {
+        //recalculate
+        Recalculate();
+    });
+    $("#inputTerm").change(function () {
+        //recalculate
+        Recalculate();
+    });
+    function Recalculate() {
+        if ($("#inputTerm").val() == 0) $("#inputTerm").val(1);
+        if ($("#inputAmount").val() == 0) $("#inputAmount").val(1);
+
+        $(".AmountRequiredLabel").html(parseFloat($("#inputAmount").val()).toLocaleString("en-US", { style: "currency", currency: "USD" }));
+        $(".TermLabel").html("over " + $("#inputTerm").val() + " Months");
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/strGetWeekly",
+            dataType: "text",
+            data: JSON.stringify({
+                "strTerm": $("#inputTerm").val(),
+                "strAmount": $("#inputAmount").val()
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                data = someerm(data);
+                console.log(data);
+
+                $(".Repayments").html(parseFloat(data).toLocaleString("en-US", { style: "currency", currency: "USD" }));
+                $("#InputRepayment").val(data);
+
+            },
+            error: function (textStatus, errorThrown) {
+                sticky_gritter("Error", "Error processing the request.", true, false);
+            }
+        });
+    }
+    $("#selectTitle").change(function () {
+        //Change data
+        updateName();
+    });
+    $("#inputFirstName").change(function () {
+        //Change data
+        updateName();
+    });
+    $("#inputLastName").change(function () {
+        //Change data
+        updateName();
+    });
+    function updateName() {
+        $("#labelName").html($("#selectTitle").val() + " " + $("#inputFirstName").val() + " " + $("#inputLastName").val());
+    }
+    $("#inputMN").change(function () {
+        $("#labelMobile").html($("#inputMN").val());
+    });
+    $("#inputEmail").change(function () {
+        $("#labelEmail").html($("#inputEmail").val());
+    });
+    $("#inputDOB").change(function () {
+        $("#labelDOB").html($("#inputDOB").val());
+    });
+    function ApplyQuote() {
+        var age = calculate_age(new Date($("#inputDOB").val()));
+        if (age < 18) {
+            sticky_gritter("Error", "To cotinue your transaction you must be 18 years old.", true, false);
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Home/UpdateQuote",
+            dataType: "text",
+            data: JSON.stringify({
+                "AmountRequired": $("#inputAmount").val(),
+                "Term": $("#inputTerm").val(),
+                "Title": $("#selectTitle").val(),
+                "FirstName": $("#inputFirstName").val(),
+                "LastName": $("#inputLastName").val(),
+                "DateOfBirth": $("#inputDOB").val(),
+                "Mobile": $("#inputMN").val(),
+                "Email": $("#inputEmail").val(),
+                "Product": $("#input_Product").val(),
+                "Weekly": $("#InputRepayment").val(),
+                "QID": $("#inputQID").val()
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                data = someerm(data);
+
+                if (data == "SUCCESS") {
+                    location.href = '@Url.Action("Success", "Home")';
+                }
+                else {
+                    sticky_gritter("Error", "Error processing the request.", true, false);
+                }
+
+            },
+            error: function (textStatus, errorThrown) {
+                sticky_gritter("Error", "Error processing the request.", true, false);
+            }
+        });
+    }
+    function calculate_age(dob) {
+        var diff_ms = Date.now() - dob.getTime();
+        var age_dt = new Date(diff_ms);
+
+        return Math.abs(age_dt.getUTCFullYear() - 1970);
+    }
+</script>
