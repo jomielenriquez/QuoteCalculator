@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "APITester";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quote Calculator Tester</h2>
+
+<form class="form-horizontal">
+    <fieldset>
+        @*<div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">Link</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputEmail" placeholder="Link">
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label for="textArea" class="col-lg-2 control-label">Parameter</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" rows="15" id="parameter" placeholder=""></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="button" class="btn btn-primary" onclick="Redirect()">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<script type="text/javascript">
+    $("#parameter").attr('placeholder',`{
+    "DateOfBirth":"2022-12-12",
+    "AmountRequired":"10000",
+    "Term":"12",
+    "Title":"Mr.",
+    "FirstName":"Jomiel",
+    "LastName":"Enriquez",
+    "Email":"enriquez.jliquigan@gmail.com",
+    "Mobile":"09953637231"
+}`);
+    $("#parameter").val(`{
+    "DateOfBirth":"2022-12-12",
+    "AmountRequired":"10000",
+    "Term":"12",
+    "Title":"Mr.",
+    "FirstName":"Jomiel",
+    "LastName":"Enriquez",
+    "Email":"enriquez.jliquigan@gmail.com",
+    "Mobile":"09953637231"
+}`);
+    function Redirect() {
+
+        var JsonPar = JSON.parse($("#parameter").val());
+
+        location.href = '@Url.Action("QuoteCalculator", "Home")?AmountRequired=' + JsonPar["AmountRequired"] +
+            '&Term=' + JsonPar["Term"] +
+            '&Title=' + JsonPar["Title"] +
+            '&FirstName=' + JsonPar["FirstName"] +
+            '&LastName=' + JsonPar["LastName"] +
+            '&DateOfBirth=' + JsonPar["DateOfBirth"] +
+            '&Mobile=' + JsonPar["Mobile"] +
+            '&Email=' + JsonPar["Email"] +
+            '&Product=' + JsonPar["Product"]+
+            '&QID=' + JsonPar["QID"];
+    }
+</script>

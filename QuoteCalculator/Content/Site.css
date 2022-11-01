@@ -30,14 +30,41 @@ textarea {
 }
 
 input[type="range"] {
-    width: 100%;
-    margin-top: 15px;
+    /*width: 100%;*/
+    margin-top: 40px;
 }
 .rangeTag {
     position: absolute;
-    color: red;
-    border: 1px solid blue;
-    transform: translateY(-35px);
+    /*color: red;*/
+    width: 200px;
+    /*border: 1px solid blue;*/
+    transform: translateY(-15px);
     text-align: center;
-    background-color:white;
+    background-color: white;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+    margin-left: 15px;
+}
+
+.rangeTag div{
+    display:block;
+}
+
+.hiddenTag{
+    display:none;
+}
+
+.emptyLable{
+    display:none;
+    height:25px;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

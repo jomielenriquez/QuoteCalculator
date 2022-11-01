@@ -1,8 +1,10 @@
-﻿
+﻿@using QuoteCalculator.Models 
+
 @{
     ViewBag.Title = "QuoteCalculator";
     Layout = "~/Views/Shared/_Quote.cshtml";
 }
+
 <div class="">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -11,15 +13,15 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
+                    <input type="number" id="inputQID" value="@Model.QID" style="display:none"/>
                     <div class="form-group">
                         <label class="col-lg-1 control-label">Product</label>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12">
-                            <select class="form-control" id="select">
-                                <option>Product A</option>
-                                <option>Product B</option>
-                                <option>Product C</option>
+                            <select class="form-control" id="selectProduct">
+                                <option>--Select Product--</option>
+
                             </select>
                         </div>
                     </div>
@@ -29,10 +31,17 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12">
-                            <input type="range" id="myRange" max="1000" min="0">
-                            <span class="rangeTag">
-                                <span id="myValue"></span>
-                            </span>
+                            <input type="range" id="inputAmount" max="1000" min="0" value="@Model.AmountRequired">
+                            <div class="rangeTag">
+                                <div class="popover fade top in" id="AmountContainer">
+                                    <div class="arrow" style="left: 50%;"></div>
+                                    <h3 class="popover-title" style="display: none;"></h3>
+                                    <div class="popover-content">
+                                        <span id="AmountValue"></span>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -41,10 +50,17 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12">
-                            <input type="range" id="myRange1" max="12" min="0">
-                            <span class="rangeTag">
-                                <span id="myValue1"></span>
-                            </span>
+                            <input type="range" id="inputTerm" max="36" min="0" value="@Model.Term">
+                            <div class="rangeTag">
+                                <div class="popover fade top in" id="TermContainer">
+                                    <div class="arrow" style="left: 50%;"></div>
+                                    <h3 class="popover-title" style="display: none;"></h3>
+                                    <div class="popover-content">
+                                        <span id="TermValue"></span>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -53,38 +69,40 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-3">
-                            <select class="form-control" id="select">
-                                <option>Mr.</option>
-                                <option>Mrs.</option>
+                            <select class="form-control" id="selectTitle">
+                                <option value="Mr." @{if (Model.Title == "Mr.") { @Html.Raw("selected") } }>Mr.</option>
+                                <option value="Mrs." @{if (Model.Title == "Mrs.") { @Html.Raw("selected") } }>Mrs.</option>
                             </select>
                         </div>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" value="@Model.FirstName">
                         </div>
                         <div class="col-lg-5">
-                            <input type="text" class="form-control" id="inputEmail" placeholder="Last Name">
+                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" value="@Model.LastName">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12">
-                            <input type="text" class="form-control" id="inputFirstName" placeholder="Your Email">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Your Email" value="@Model.Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6">
+                            <input type="date" class="form-control" id="inputDOB" placeholder="Date of Birth" value="@Model.DateOfBirth">
+                            @*<input type="date" class="form-control" id="inputDOB" placeholder="Date of Birth" value="@{ if (Model.DateOfBirth.Length != 0) { @Model.DateOfBirth } }">*@
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="tel" class="form-control" id="inputMN" placeholder="Mobile Number" value="@Model.Mobile" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}">
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-lg-6">
-                            <input type="date" class="form-control" id="inputFirstName" placeholder="Date of Birth">
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" id="inputEmail" placeholder="Mobile Number">
-                        </div>
-                    </div>
-
 
                     <div class="form-group">
-                        <div class="col-lg-12">
-                            <button type="button" class="btn btn-primary" style="margin:auto;">Calculate quote</button>
+                        <div class="col-lg-5"></div>
+                        <div class="col-lg-5">
+                            <button type="button" class="btn btn-primary" style="margin:auto;" onclick="SaveQuote()">Calculate quote</button>
                         </div>
+                        <div class="col-lg-5"></div>
                     </div>
 
                 </form>
@@ -93,51 +111,131 @@
     </div>
 </div>
 
+@*@Scripts.Render("~/bundles/SystemJS")*@
+
 <script type="text/javascript" charset="utf-8">
+    function someerm(data) {
+        const splitData = data.split("<!--SCRIPT GENERATED BY SERVER! PLEASE REMOVE-->");
+        return splitData[0];
+    }
+
     class inputSlider {
-        constructor(irange, ivalue, unit, unitLoc) { 
+        constructor(irange, container, ivalue, unit, unitLoc) {
             // unitLoc or unit location 1 front, 2 end
             var myRange = irange;
             var myValue = ivalue;
+            var myContainer = container
             var myUnits = unit;
             var off = myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
-            var px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetParent.offsetWidth / 2);
+            var px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myContainer.offsetParent.offsetWidth / 2);
 
-            myValue.parentElement.style.left = px + 'px';
-            myValue.parentElement.style.top = myRange.offsetHeight + 'px';
+            myContainer.parentElement.style.left = px + 'px';
+            myContainer.parentElement.style.top = myRange.offsetHeight + 'px';
             if (unitLoc == 1) myValue.innerHTML = myUnits + ' ' + myRange.value;
             else myValue.innerHTML = myRange.value + ' ' + myUnits;
 
             myRange.oninput = function () {
-                let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetWidth / 2);
+                let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myContainer.offsetWidth / 2);
                 if (unitLoc == 1) myValue.innerHTML = myUnits + ' ' + myRange.value;
                 else myValue.innerHTML = myRange.value + ' ' + myUnits;
-                myValue.parentElement.style.left = px + 'px';
+                myContainer.parentElement.style.left = px + 'px';
+            };
+            myRange.onchange = function () {
+                let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myContainer.offsetWidth / 2);
+                if (unitLoc == 1) myValue.innerHTML = myUnits + ' ' + myRange.value;
+                else myValue.innerHTML = myRange.value + ' ' + myUnits;
+                myContainer.parentElement.style.left = px + 'px';
             };
         }
     }
 
 
-    var myRange = document.querySelector('#myRange');
-    var myValue = document.querySelector('#myValue');
-    let test = new inputSlider(myRange, myValue, '$', 1);
+    var inputAmount = document.querySelector('#inputAmount');
+    var AmountValue = document.querySelector('#AmountValue');
+    var AmountContainer = document.querySelector('#AmountContainer');
+    let SliderAmount = new inputSlider(inputAmount, AmountContainer, AmountValue, '$', 1);
 
 
-    var myRange1 = document.querySelector('#myRange1');
-    var myValue1 = document.querySelector('#myValue1');
-    let test1 = new inputSlider(myRange1, myValue1, 'month/s', 2);
+    var inputTerm = document.querySelector('#inputTerm');
+    var TermValue = document.querySelector('#TermValue');
+    var TermContainer = document.querySelector('#TermContainer');
+    let SliderTerm = new inputSlider(inputTerm, TermContainer, TermValue, 'months', 2);
 
-    //var myUnits = '$';
-    //var off = myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
-    //var px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetParent.offsetWidth / 2);
+    $(document).ready(function () {
+        GetProduct();
+    });
+    function GetProduct() {
+        $.ajax({
+            type: "POST",
+            url: "/Home/GetProduct",
+            dataType: "text",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                data = someerm(data);
+                //gritter("Success", "see console log.");
+                //var Json_Data = JSON.parse(data);
+                //console.log(Json_Data);
 
-    //myValue.parentElement.style.left = px + 'px';
-    //myValue.parentElement.style.top = myRange.offsetHeight + 'px';
-    //myValue.innerHTML = myUnits + ' ' + myRange.value;
+                $("#selectProduct").html('<option selected="selected" style="color:blue" value="">Please select</option>');
+                var Json_Data = JSON.parse(data);
+                //console.log(Json_Data);
+                for (var i = 0; i < Json_Data.length; i++) {
+                    $("#selectProduct").append("<option value='" + Json_Data[i]["PCODE"] + "'>" + Json_Data[i]["PDESC"] + "</option>")
+                }
 
-    //myRange.oninput = function () {
-    //    let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetWidth / 2);
-    //    myValue.innerHTML = myUnits + ' ' +  myRange.value;
-    //    myValue.parentElement.style.left = px + 'px';
-    //};
+            },
+            error: function (textStatus, errorThrown) {
+                sticky_gritter("Error", "Error processing the request.", true, false);
+            }
+        });
+    }
+    function SaveQuote() {
+        if ($("#selectProduct").val() == " " || $("#selectProduct").val().length == 0) {
+            sticky_gritter("Error", "Please select product", true, false);
+            return;
+        }
+        if ($("#inputAmount").val()== 0) {
+            sticky_gritter("Error", "Amount must not be equal to zero", true, false);
+            return;
+        }
+        if ($("#inputTerm").val() == 0) {
+            sticky_gritter("Error", "Term must not be equal to zero", true, false);
+            return;
+        }
+        if ($("#selectTitle").val() == "") {
+            sticky_gritter("Error", "Please select Title", true, false);
+            return;
+        }
+        if ($("#inputFirstName").val() == " " || $("#inputFirstName").val().length == 0) {
+            sticky_gritter("Error", "Please enter your first name", true, false);
+            return;
+        }
+        if ($("#inputLastName").val() == " " || $("#inputLastName").val().length == 0) {
+            sticky_gritter("Error", "Please enter your last name", true, false);
+            return;
+        }
+        if ($("#inputEmail").val() == " " || $("#inputEmail").val().length == 0) {
+            sticky_gritter("Error", "Please enter your email", true, false);
+            return;
+        }
+        if ($("#inputDOB").val() == " " || $("#inputDOB").val().length == 0) {
+            sticky_gritter("Error", "Please enter your date of birth", true, false);
+            return;
+        }
+        if ($("#inputMN").val() == " " || $("#inputMN").val().length == 0) {
+            sticky_gritter("Error", "Please enter your mobile number", true, false);
+            return;
+        }
+
+        location.href = '@Url.Action("Quote", "Home")?AmountRequired=' + $("#inputAmount").val() +
+            '&Term=' + $("#inputTerm").val() +
+            '&Title=' + $("#selectTitle").val() +
+            '&FirstName=' + $("#inputFirstName").val() +
+            '&LastName=' + $("#inputLastName").val() +
+            '&DateOfBirth=' + $("#inputDOB").val() +
+            '&Mobile=' + $("#inputMN").val() +
+            '&Email=' + $("#inputEmail").val() +
+            '&Product=' + $("#selectProduct").val()+
+            '&QID=' + $("#inputQID").val();
+    }
 </script>

@@ -9,7 +9,11 @@ namespace QuoteCalculator
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/datatable/jquery.dataTables.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/Table").Include(
+                        "~/Scripts/datatable/jquery.dataTables.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -17,16 +21,24 @@ namespace QuoteCalculator
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                        "~/Scripts/jquery/jquery.min.js",
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/jquery.gritter.js",
+                      "~/Scripts/gritter.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/SystemJS").Include(
+                        "~/Scripts/SystemJS.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery.gritter.css",
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/css2").Include(
+                      "~/Content/jquery.gritter.css",
                       "~/Content/site.css"));
 
             //Default

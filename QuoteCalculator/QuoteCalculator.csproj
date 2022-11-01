@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -121,9 +122,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Repository\CalcuRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Quote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +159,8 @@
     <Content Include="Content\images\trees.jpg" />
     <Content Include="Content\Journal\bootstrap.css" />
     <Content Include="Content\Journal\bootstrap.min.css" />
+    <Content Include="Content\jquery.gritter.css" />
+    <Content Include="Content\Loading.css" />
     <Content Include="Content\Lumen\bootstrap.css" />
     <Content Include="Content\Lumen\bootstrap.min.css" />
     <Content Include="Content\Paper\bootstrap.css" />
@@ -180,18 +185,35 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\ACNT\JomielEnriquez.jpg" />
+    <Content Include="images\confirm.png" />
+    <Content Include="images\error.png" />
+    <Content Include="images\gritter-light.png" />
+    <Content Include="images\gritter-long.png" />
+    <Content Include="images\gritter.png" />
+    <Content Include="images\ie-spacer.gif" />
+    <Content Include="images\trees.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\datatable\BootstrapCustomTable.js" />
+    <Content Include="Scripts\datatable\jquery.dataTables.min.js" />
+    <Content Include="Scripts\datatable\TableCustom.js" />
+    <Content Include="Scripts\gritter.js" />
+    <Content Include="Scripts\SystemJS.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.gritter.js" />
+    <Content Include="Scripts\jquery.gritter.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery\jquery.js" />
+    <Content Include="Scripts\jquery\jquery.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -209,10 +231,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Quote.cshtml" />
     <Content Include="Views\Home\QuoteCalculator.cshtml" />
+    <Content Include="Views\Home\Quote.cshtml" />
+    <Content Include="Views\Home\QuoteList.cshtml" />
+    <Content Include="Views\Home\APITester.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
