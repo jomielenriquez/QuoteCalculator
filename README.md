@@ -25,6 +25,28 @@
 <br/>  💡Running file ('QuoteCalculatorDB.sql') will create all the tables and stored procedure needed to run the Quote Calculator web app.
 5. Just wait for the script to finish executing.
 
+## 🚧 Database Table
+   #### 🏗️ DBO.TBLPRODUCT
+   COLUMNS
+   <br/> - 🔑 PID   INT   💡Product ID
+   <br/> - 🟨 PCODE NVARCHAR(50) 💡Product Code
+   <br/> - 🟨 PDESC NVARCHAR(50) 💡Product Description 
+   <br/>
+   
+   
+   #### 🏗️ DBO.TBLQUOTE
+   COLUMNS
+   <br/> - 🔑 QID   INT   💡Quote ID
+   <br/> - 🟨 TITLE NVARCHAR(50) 💡('Mr.', 'Mrs.')
+   <br/> - 🟨 FIRSTNAME NVARCHAR(50) 💡First name of the requestor
+   <br/> - 🟨 LASTNAME NVARCHAR(50) 💡Last name of the requestor
+   <br/> - 🟨 PRODUCT NVARCHAR(50) 💡This is the product ID from TBLPRODUCT. Foreign key of dbo.tblproduct.pid
+   <br/> - 🟨 AMOUNT DECIMAL(18,4) 💡Amount of the quote
+   <br/> - 🟨 TERM INT 💡Number of months for the quote
+   <br/> - 🟨 EMAIL NVARCHAR(50) 💡Requestor email
+   <br/> - 🟨 DATEOFBIRTH DATETIME 💡Requestor Birth Date
+   <br/> - 🟨 MOBILE NVARCHAR(50) 💡Requestor mobile number
+   <br/> - 🟨 WEEKLY NVARCHAR(50) 💡Requestor weekly payable for the quote
 
 
 
