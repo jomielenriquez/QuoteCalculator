@@ -11,10 +11,20 @@
 
 ## :hammer_and_wrench: Requirements
 - [x] Install Visual Studio 2022 and .Net Frameword 4.7.2
-   - [x] :bulb: Visual Studio 2022 is used to create ASP.Net Solution.
+   <br/> :bulb: Visual Studio 2022 is used to create ASP.Net Solution.
 - [x] Install Microsoft SQL Studio (SSMS)
-   - [x] :bulb: SSMS is used to manage the database.
+   <br/> :bulb: SSMS is used to manage the database.
 - [x] Install SSMS Express
-   - [x] :bulb: To create a database in your computer or server, the SSMS express must be installed. It will not create any shortcut file to your desktop, it will only run on background.
+   <br/> :bulb: To create a database in your computer or server, the SSMS express must be installed. It will not create any shortcut file to your desktop, it will only run on background.
+
+## 🔧 Database Configuration
+1. Open SSMS and Connect to your SQL server and log in
+2. Create new database and name it as "CALCUDB".
+<br/>  ⚠️ Not doing this step can cause an issue on the web application
+4. After creating CALCUDB on your SQL server, on the file 'QuoteCalculatorDB.sql' in SSMS and press "F5" to run the query.
+<br/>  💡Running file ('QuoteCalculatorDB.sql') will create all the tables and stored procedure needed to run the Quote Calculator web app.
+5. Just wait for the script to finish executing.
+
+
 
 
