@@ -8,10 +8,13 @@
   <img src="https://user-images.githubusercontent.com/77730490/199245570-14b109d0-efda-4cdb-bf55-f4c21503c1de.png" width="100" /> 
   <img src="https://static.wikia.nocookie.net/logopedia/images/e/ec/Microsoft_Visual_Studio_2022.svg/revision/latest/scale-to-width-down/250?cb=20211027141551" width="100" /> 
 </p>
-1. ASP.Net
-2. 
 
 ## :hammer_and_wrench: Requirements
 - [x] Install Visual Studio 2022 and .Net Frameword 4.7.2
+   - [x] :bulb: Visual Studio 2022 is used to create ASP.Net Solution.
 - [x] Install Microsoft SQL Studio (SSMS)
+   - [x] :bulb: SSMS is used to manage the database.
 - [x] Install SSMS Express
+   - [x] :bulb: To create a database in your computer or server, the SSMS express must be installed. It will not create any shortcut file to your desktop, it will only run on background.
+
+
